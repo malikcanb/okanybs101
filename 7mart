@@ -1,0 +1,156 @@
+package diziler;
+
+import java.util.Scanner;
+
+public class yedimart {
+
+	public static void main(String[] args) {
+		Scanner tara = new Scanner(System.in);
+		
+		int gsayi;
+		System.out.println("Kaç kişi gireceksiniz?");
+		gsayi = tara.nextInt();
+		int [] vize=new int[gsayi],finall=new int[gsayi];
+		int [] tekbasari = new int [gsayi];
+		String [] isim=new String[gsayi],cinsiyet=new String[gsayi];
+		for(int i=0;i<gsayi;i++) {
+			System.out.println((i+1)+". Kişinin Bilgileri");
+			System.out.println("İsim giriniz");
+			isim[i]=tara.next();
+			System.out.println("Cinsiyet giriniz");
+			cinsiyet[i] =tara.next();
+			System.out.println("vize giriniz");
+			vize[i]=tara.nextInt();
+			tekbasari[i]+=vize[i];
+			System.out.println("Final giriniz");
+			finall[i]=tara.nextInt();
+			tekbasari[i]+=finall[i];
+			
+		}
+		int basariort=basari(vize,finall,gsayi);
+		for(;;) 
+		{
+		int secim=menu();
+		switch(secim) {
+		case 1:
+			liseteleme(vize,finall,isim,cinsiyet);
+			break;
+		case 2:
+			arama(vize,finall,isim,cinsiyet);
+			break;
+		case 3:
+			int vizeort=vizefinalbasariort(vize);
+			System.out.println("Vize ortalaması"+vizeort/vize.length);
+			int finalort=finalort(finall);
+			System.out.println("Final ortalaması"+finalort/finall.length);
+			System.out.println("Başarı ortalaması"+basariort);
+		break;
+		case 4:basarinotuorttanbuyuk(vize,finall,isim,cinsiyet,basariort,tekbasari);
+		break;
+		case 5: enkucukbasarinotu(vize,finall,isim,cinsiyet,tekbasari,basariort);
+		break;
+		case 6:enbuyukbasarinotu(vize,finall,isim,cinsiyet,tekbasari,basariort,finall);
+		break;
+		case 7:System.exit(0);
+		}
+		}
+	}
+	private static int basari(int[] vize, int[] finall,int gsayi) {
+		int ort=0;
+		for(int i=0;i<vize.length;i++) {
+			ort+=(vize[i]+finall[i])/2;
+		}
+		
+		return ort/vize.length;
+	}
+
+	private static int finalort(int[] finall) {
+		int finaltop = 0;
+		for(int i=0;i<finall.length;i++) {
+			finaltop+=finall[i];
+		}
+		return finaltop;
+	}
+
+	private static int basari(int[] vize, int[] finall, String[] isim, String[] cinsiyet) {
+		int basaritop=0,vizetop=0,finaltop=0;
+		for(int i=0;i<isim.length;i++) {
+			vizetop+=vize[i];
+			finaltop+=finall[i];
+		}
+		
+		return 0;
+	}
+
+	private static int menu() {
+		Scanner tara = new Scanner(System.in);
+		System.out.println("Ne istiyorsunuz? 1-listeleme,2-ad ile arama,3-vize final başarı ortalaması,4-başarı notu ortalamadan büyüklerin bilgisi"
+				+ "5-en küçük başarı notu ve bilgisi,6-en büyük başarı notu ve bilgisi,7-çıkış");
+		int secim=tara.nextInt();
+		return secim;
+	}
+
+	private static void liseteleme(int[] vize, int[] finall, String[] isim, String[] cinsiyet) {
+		for(int i=0;i<isim.length;i++) {
+				System.out.println(+(i+1)+". Kişinin bilgileri");
+				System.out.println("İsim:"+isim[i]);
+				System.out.println("Cinsiyet:"+cinsiyet[i]);
+				System.out.println("Vize notu:"+vize[i]);
+				System.out.println("Final notu"+finall[i]);
+			}
+	}
+
+	private static void arama(int[] vize, int[] finall, String[] isim, String[] cinsiyet) {
+		System.out.println("İsim yazınız:");
+		Scanner tara = new Scanner(System.in);
+		String ara=tara.next();
+		for(int i=0;i<isim.length;i++) {
+		if(ara.equalsIgnoreCase(isim[i])) {
+			System.out.println("İsim:"+isim[i]);
+			System.out.println("Cinsiyet:"+cinsiyet[i]);
+			System.out.println("Vize notu:"+vize[i]);
+			System.out.println("Final notu"+finall[i]);
+		}
+		}
+		}
+
+	private static int vizefinalbasariort(int[] vize) {
+		int basaritop=0,vizetop=0,finaltop=0;
+		for(int i=0;i<vize.length;i++) {
+			vizetop+=vize[i];
+		}
+		return vizetop;
+	}
+
+	private static void basarinotuorttanbuyuk(int[] vize, int[] finall, String[] isim, String[] cinsiyet, int basariort,int [] tekbasari) {
+		for(int i=0;i<isim.length;i++) {
+			if((tekbasari[i]/vize.length)>basariort) {
+				System.out.println("İsim:"+isim[i]);
+				System.out.println("Cinsiyet:"+cinsiyet[i]);
+				System.out.println("Vize notu:"+vize[i]);
+				System.out.println("Final notu"+finall[i]);
+			}
+		}
+	}
+
+	private static void enkucukbasarinotu(int[] vize, int[] finall, String[] isim, String[] cinsiyet,int[] tekbasari,int basariort) {
+		for(int i=0;i<isim.length;i++) {
+			if(basariort<(tekbasari[i]/vize.length)) {
+				System.out.println("İsim:"+isim[i]);
+				System.out.println("Cinsiyet:"+cinsiyet[i]);
+				System.out.println("Vize notu:"+vize[i]);
+				System.out.println("Final notu"+finall[i]);
+			}
+		}
+	}
+	private static void enbuyukbasarinotu(int[] vize, int[] finall, String[] isim, String[] cinsiyet, int[] tekbasari, int basariort, int[] finall2) {
+		for(int i=0;i<isim.length;i++) {
+			if((tekbasari[i]/vize.length)>basariort) {
+				System.out.println("İsim:"+isim[i]);
+				System.out.println("Cinsiyet:"+cinsiyet[i]);
+				System.out.println("Vize notu:"+vize[i]);
+				System.out.println("Final notu"+finall[i]);
+	}
+		}
+}
+}
